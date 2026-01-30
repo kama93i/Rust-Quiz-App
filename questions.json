@@ -1,0 +1,152 @@
+[
+  {
+    "text": "What does this function return?",
+    "code": "fn mystery() -> i32 {\n    let x = 5;\n    let y = {\n        let x = 10;\n        x\n    };\n    x + y\n}",
+    "options": ["10", "15", "20", "Compile error"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What happens here?",
+    "code": "fn main() {\n    let s = String::from(\"hello\");\n    let len = calculate_length(s);\n    println!(\"{}\", s);\n}\nfn calculate_length(s: String) -> usize {\n    s.len()\n}",
+    "options": ["Prints 'hello'", "Prints '5'", "Compile error - s moved", "Runtime error"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let mut v = vec![1, 2, 3];\n    let first = &v[0];\n    v.push(4);\n    println!(\"{}\", first);\n}",
+    "options": ["1", "4", "Compile error - cannot borrow as mutable", "Runtime panic"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn process(x: Option<i32>) -> i32 {\n    match x {\n        Some(val) if val > 10 => val * 2,\n        Some(val) => val,\n        None => 0,\n    }\n}",
+    "options": ["Always 0", "Doubles values > 10, returns others as-is", "Compile error", "Always doubles"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is the value of `result`?",
+    "code": "let numbers = vec![1, 2, 3, 4];\nlet result: i32 = numbers.iter()\n    .filter(|x| *x % 2 == 0)\n    .map(|x| x * 2)\n    .sum();",
+    "options": ["4", "8", "12", "20"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What happens here?",
+    "code": "fn main() {\n    let x = vec![1, 2, 3];\n    let y = x;\n    let z = x;\n}",
+    "options": ["All variables share the same vec", "z gets a copy", "Compile error - x moved to y", "Runtime error"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let s = String::from(\"hello\");\n    change(&s);\n    println!(\"{}\", s);\n}\nfn change(s: &String) {\n    s.push_str(\" world\");\n}",
+    "options": ["hello world", "hello", "Compile error - cannot mutate through & reference", "Runtime error"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn get_value() -> Result<i32, String> {\n    Ok(42)\n}\nfn main() -> Result<(), String> {\n    let x = get_value()?;\n    Ok(())\n}",
+    "options": ["Compile error", "x is 42, returns Ok(())", "x is Ok(42)", "Panics"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is the type of `collected`?",
+    "code": "let collected = vec![1, 2, 3]\n    .iter()\n    .collect::<Vec<_>>();",
+    "options": ["Vec<i32>", "Vec<&i32>", "Vec<Option<i32>>", "Compile error"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let x = 5;\n    let r = &x;\n    let rr = &r;\n    println!(\"{}\", **rr);\n}",
+    "options": ["&&5", "&5", "5", "Compile error"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn takes_ownership(s: String) -> String {\n    s\n}\nfn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = takes_ownership(s1);\n    let len = s1.len();\n}",
+    "options": ["5", "Compile error - s1 moved", "0", "Runtime error"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let mut s = String::from(\"hello\");\n    let r1 = &s;\n    let r2 = &s;\n    let r3 = &mut s;\n    println!(\"{}\", r1);\n}",
+    "options": ["hello", "Compile error - cannot borrow as mutable while borrowed", "Runtime error", "Empty string"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What does `unwrap_or_else` do?",
+    "code": "let x: Option<i32> = None;\nlet result = x.unwrap_or_else(|| 5 * 2);",
+    "options": ["Panics", "Returns Some(10)", "Returns 10", "Returns None"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let v = vec![1, 2, 3];\n    for i in v {\n        println!(\"{}\", i);\n    }\n    println!(\"{:?}\", v);\n}",
+    "options": ["Prints 1 2 3 then [1, 2, 3]", "Compile error - v moved", "Runtime error", "Prints only 1 2 3"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() { x } else { y }\n}",
+    "options": ["Always x", "The longer string", "Compile error", "The shorter string"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What happens here?",
+    "code": "fn main() {\n    let s = \"hello\";\n    let slice = &s[0..10];\n}",
+    "options": ["slice is \"hello\"", "slice is \"hello\" with padding", "Runtime panic - index out of bounds", "Compile error"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let x = Some(5);\n    let y = x.map(|n| n * 2);\n    println!(\"{:?}\", y);\n}",
+    "options": ["5", "10", "Some(10)", "Some(5)"],
+    "correct_answer": 2
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn process() -> Option<i32> {\n    let x = Some(5);\n    let y = None;\n    x.and_then(|a| y.map(|b| a + b))\n}",
+    "options": ["Some(5)", "None", "Some(0)", "Compile error"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is the difference between `clone()` and `copy`?",
+    "code": null,
+    "options": ["No difference", "clone() is explicit, Copy is implicit for simple types", "copy is faster", "clone() only works with references"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What happens with this closure?",
+    "code": "fn main() {\n    let x = vec![1, 2, 3];\n    let closure = || {\n        println!(\"{:?}\", x);\n    };\n    closure();\n    println!(\"{:?}\", x);\n}",
+    "options": ["Prints twice successfully", "Compile error - x moved", "Closure doesn't capture x", "Runtime error"],
+    "correct_answer": 0
+  },
+  {
+    "text": "What is printed?",
+    "code": "fn main() {\n    let s = String::from(\"hello\");\n    let len = s.len();\n    takes_ownership(s);\n    println!(\"{}\", len);\n}\nfn takes_ownership(s: String) {}",
+    "options": ["5", "0", "Compile error - s moved before len", "hello"],
+    "correct_answer": 0
+  },
+  {
+    "text": "What does `Box<T>` provide?",
+    "code": null,
+    "options": ["Stack allocation", "Heap allocation with single ownership", "Reference counting", "Thread safety"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What is the value of `result`?",
+    "code": "let result = vec![Some(1), None, Some(3)]\n    .into_iter()\n    .flatten()\n    .sum::<i32>();",
+    "options": ["0", "4", "6", "Compile error"],
+    "correct_answer": 1
+  },
+  {
+    "text": "What happens here?",
+    "code": "fn main() {\n    let x = 5;\n    let y = &x;\n    let z = &x;\n    println!(\"{} {}\", y, z);\n}",
+    "options": ["Prints '5 5'", "Compile error - multiple borrows", "Runtime error", "Prints addresses"],
+    "correct_answer": 0
+  },
+  {
+    "text": "What does this return?",
+    "code": "fn compute() -> Result<i32, &'static str> {\n    let x: Result<i32, &str> = Ok(5);\n    let y = x?;\n    Ok(y * 2)\n}",
+    "options": ["Ok(5)", "Ok(10)", "Err(\"error\")", "Compile error"],
+    "correct_answer": 1
+  }
+]

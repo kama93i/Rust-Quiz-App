@@ -14,28 +14,25 @@ Terminal-based quiz application with JSON question loading, built with Rust and 
 ```bash
 git clone https://github.com/yourusername/quiz-tui
 cd quiz-tui
-cargo build --release
-./target/release/quiz-tui
 ```
 
 ## Usage
 
 **1. Create a questions file (questions.json):**
 ```json
-{
-  "questions": [
-    {
-      "question": "What is the capital of France?",
-      "options": ["London", "Berlin", "Paris", "Madrid"],
-      "correct": 2
-    }
-  ]
-}
+[
+  {
+    "text": "What does this function return?",
+    "code": "fn mystery() -> i32 {\n    let x = 5;\n    let y = {\n        let x = 10;\n        x\n    };\n    x + y\n}",
+    "options": ["10", "15", "20", "Compile error"],
+    "correct_answer": 1
+  },
+]
 ```
 
 **2. Run the quiz:**
 ```bash
-quiz-tui questions.json
+cargo run
 ```
 
 **3. Navigate:**

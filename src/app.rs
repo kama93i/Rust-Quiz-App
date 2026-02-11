@@ -9,6 +9,7 @@ pub struct App {
     current_question_index: usize,
     selected_option: usize,
     answers: Vec<Option<usize>>,
+    result_scroll: usize,
 }
 
 impl App {
@@ -22,6 +23,7 @@ impl App {
             current_question_index: 0,
             selected_option: 0,
             answers: vec![None; num_questions],
+            result_scroll: 0,
         }
     }
 
@@ -47,6 +49,19 @@ impl App {
 
     pub fn answers(&self) -> &[Option<usize>] {
         &self.answers
+    }
+
+    pub fn result_scroll(&self) -> usize {
+        self.result_scroll
+    }
+
+    pub fn scroll_results_down(&mut self) {
+        let max_scroll = self.questions.len().saturating_sub(1);
+        self.result_scroll = (self.result_scroll + 1).min(max_scroll);
+    }
+
+    pub fn scroll_results_up(&mut self) {
+        self.result_scroll = self.result_scroll.saturating_sub(1);
     }
 
     pub fn select_next_option(&mut self) {
@@ -84,6 +99,7 @@ impl App {
         self.current_question_index = 0;
         self.selected_option = 0;
         self.answers = vec![None; self.questions.len()];
+        self.result_scroll = 0;
     }
 }
 

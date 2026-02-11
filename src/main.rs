@@ -80,6 +80,14 @@ fn handle_quiz_input(app: &mut App, key: KeyCode) -> bool {
 
 fn handle_result_input(app: &mut App, key: KeyCode) -> bool {
     match key {
+        KeyCode::Down | KeyCode::Char('j') => {
+            app.scroll_results_down();
+            false
+        }
+        KeyCode::Up | KeyCode::Char('k') => {
+            app.scroll_results_up();
+            false
+        }
         KeyCode::Char('r') | KeyCode::Char('R') => {
             app.restart();
             false

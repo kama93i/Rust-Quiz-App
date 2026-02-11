@@ -23,7 +23,7 @@ pub fn render(frame: &mut Frame, area: Rect, app: &App) {
     .split(area);
 
     render_score_summary(frame, chunks[1], score, total, percentage, grade_color);
-    render_question_breakdown(frame, chunks[2], app);
+    render_question_breakdown(frame, chunks[2], app, app.result_scroll());
     render_controls(frame, chunks[3]);
 }
 
@@ -74,7 +74,7 @@ fn render_score_summary(
     frame.render_widget(widget, area);
 }
 
-fn render_question_breakdown(frame: &mut Frame, area: Rect, app: &App) {
+fn render_question_breakdown(frame: &mut Frame, area: Rect, app: &App, scroll: usize) {
     let lines: Vec<Line> = app
         .answers()
         .iter()
@@ -101,7 +101,9 @@ fn render_question_breakdown(frame: &mut Frame, area: Rect, app: &App) {
         })
         .collect();
 
-    let widget = Paragraph::new(lines).block(Block::default().padding(Padding::horizontal(1)));
+    let widget = Paragraph::new(lines)
+        .block(Block::default().padding(Padding::horizontal(1)))
+        .scroll((scroll as u16, 0));
     frame.render_widget(widget, area);
 }
 
@@ -116,7 +118,7 @@ fn truncate_question(text: &str) -> String {
 }
 
 fn render_controls(frame: &mut Frame, area: Rect) {
-    let widget = Paragraph::new("r restart  ·  q quit")
+    let widget = Paragraph::new("j/k scroll  ·  r restart  ·  q quit")
         .alignment(Alignment::Center)
         .fg(Color::DarkGray);
     frame.render_widget(widget, area);

@@ -1,13 +1,13 @@
 //! # rust-quiz
 //!
-//! A terminal-based quiz application library for Rust.
+//! A terminal-based quiz application library for Rust with multiplayer support.
 //!
-//! ## Usage
+//! ## Local Mode (Single Player)
 //!
 //! ```rust,no_run
-//! use rust_quiz::{Quiz, QuizError};
+//! use rust_quiz::Quiz;
 //!
-//! fn main() -> Result<(), QuizError> {
+//! fn main() -> Result<(), rust_quiz::QuizError> {
 //!     // Load questions from a JSON file
 //!     let quiz = Quiz::from_json("questions.json")?;
 //!
@@ -17,10 +17,25 @@
 //!     Ok(())
 //! }
 //! ```
+//!
+//! ## Server Mode (Host)
+//!
+//! ```bash
+//! rust-quiz serve --port 8712 --questions questions.json
+//! ```
+//!
+//! ## Client Mode (Player)
+//!
+//! ```bash
+//! rust-quiz connect --host localhost --port 8712
+//! ```
 
 mod app;
-mod data;
+pub mod client;
+pub mod data;
 mod models;
+pub mod protocol;
+pub mod server;
 pub mod terminal;
 mod ui;
 
@@ -32,6 +47,9 @@ use crossterm::event::{self, Event, KeyCode, KeyEventKind};
 pub use app::App;
 pub use data::{load_questions_from_json, LoadError};
 pub use models::{AppState, Question};
+pub use protocol::{
+    AnswerResult, ClientMessage, LeaderboardEntry, ServerMessage, DEFAULT_PORT,
+};
 
 /// Error type for quiz operations.
 #[derive(Debug)]

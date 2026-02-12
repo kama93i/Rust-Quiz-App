@@ -38,7 +38,7 @@ pub fn execute_command(state: &mut ServerState, input: &str) -> CommandResult {
         "unban" => cmd_unban(state, args),
         "view" => cmd_view(state, args),
         "list" => cmd_list(state, args),
-        "help" | "?" => cmd_help(),
+        "help" | "?" => cmd_help(state),
         _ => CommandResult::Error(format!(
             "Unknown command: {}. Type 'help' for available commands.",
             command
@@ -291,19 +291,10 @@ fn cmd_list(state: &mut ServerState, args: &[&str]) -> CommandResult {
     }
 }
 
-/// Show help.
-fn cmd_help() -> CommandResult {
-    let help = r#"Available commands:
-  start          - Start the quiz (lobby only)
-  stop           - End quiz, send results to finished users
-  quit/exit      - Shutdown server
-  kick <user>    - Disconnect a user
-  ban <user>     - Kick and ban user's IP
-  unban <ip>     - Remove IP from ban list
-  view <user>    - Show detailed view of user
-  view all       - Show all users analytics
-  list           - List connected users
-  list bans      - List banned IPs
-  help/?         - Show this help"#;
-    CommandResult::Ok(Some(help.to_string()))
+/// Show help by switching to Help view.
+fn cmd_help(state: &mut ServerState) -> CommandResult {
+    // Save current view so we can return to it
+    state.previous_view = Some(state.current_view.clone());
+    state.current_view = ServerView::Help;
+    CommandResult::Ok(None)
 }

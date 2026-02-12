@@ -48,6 +48,8 @@ pub enum ServerView {
     Analytics,
     /// Detailed view of a specific user.
     UserDetail(String),
+    /// Help view showing available commands.
+    Help,
 }
 
 impl Default for ServerView {
@@ -176,6 +178,8 @@ pub struct ServerState {
     pub banned_ips: HashSet<IpAddr>,
     /// Current view for the host.
     pub current_view: ServerView,
+    /// Previous view (for returning from Help).
+    pub previous_view: Option<ServerView>,
     /// Current command input.
     pub command_input: String,
     /// Command history for display.
@@ -199,6 +203,7 @@ impl ServerState {
             ip_to_id: HashMap::new(),
             banned_ips: HashSet::new(),
             current_view: ServerView::Lobby,
+            previous_view: None,
             command_input: String::new(),
             command_history: Vec::new(),
             live_answers: Vec::new(),

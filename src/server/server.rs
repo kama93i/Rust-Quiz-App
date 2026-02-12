@@ -468,6 +468,18 @@ async fn run_tui(state: SharedState) -> Result<(), Box<dyn std::error::Error>> {
 async fn handle_input(state: &SharedState, key: KeyCode) -> bool {
     let mut state = state.lock().await;
 
+    // If in Help view, Esc or Enter returns to previous view
+    if matches!(state.current_view, ServerView::Help) {
+        if matches!(key, KeyCode::Esc | KeyCode::Enter) {
+            if let Some(prev) = state.previous_view.take() {
+                state.current_view = prev;
+            } else {
+                state.current_view = ServerView::Lobby;
+            }
+        }
+        return false;
+    }
+
     match key {
         KeyCode::Char(c) => {
             state.command_input.push(c);
@@ -501,6 +513,7 @@ async fn handle_input(state: &SharedState, key: KeyCode) -> bool {
                 ServerView::Lobby => ServerView::Analytics,
                 ServerView::Analytics => ServerView::Lobby,
                 ServerView::UserDetail(_) => ServerView::Analytics,
+                ServerView::Help => ServerView::Lobby,
             };
         }
         _ => {}

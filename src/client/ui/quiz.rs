@@ -64,13 +64,7 @@ pub fn render(frame: &mut Frame, area: Rect, app: &ClientApp) {
 }
 
 fn render_progress(frame: &mut Frame, area: Rect, current: usize, total: usize) {
-    let pct = if total > 0 {
-        ((current) as f64 / total as f64) * 100.0
-    } else {
-        0.0
-    };
-
-    let progress_text = format!("Question {} of {} ({:.0}%)", current + 1, total, pct);
+    let progress_text = format!("Question {} of {}", current + 1, total);
 
     let widget = Paragraph::new(progress_text)
         .alignment(Alignment::Center)

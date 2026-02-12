@@ -5,7 +5,7 @@ use ratatui::widgets::{Block, Borders, Paragraph};
 
 use crate::server::state::{ServerState, ServerStatus, ServerView};
 
-use super::{analytics, lobby, user_view};
+use super::{analytics, help, lobby, user_view};
 
 /// Render the server UI based on current state.
 pub fn render(frame: &mut Frame, state: &ServerState) {
@@ -71,6 +71,7 @@ fn render_main_content(frame: &mut Frame, area: Rect, state: &ServerState) {
         ServerView::Lobby => lobby::render(frame, area, state),
         ServerView::Analytics => analytics::render(frame, area, state),
         ServerView::UserDetail(username) => user_view::render(frame, area, state, username),
+        ServerView::Help => help::render(frame, area),
     }
 }
 

@@ -1,6 +1,3 @@
-use std::path::Path;
-
-use crate::data::load_questions;
 use crate::models::{AppState, Question};
 
 const NUM_OPTIONS: usize = 4;
@@ -15,8 +12,8 @@ pub struct App {
 }
 
 impl App {
-    pub fn new() -> Self {
-        let questions = load_questions();
+    /// Create a new App with the given questions.
+    pub fn with_questions(questions: Vec<Question>) -> Self {
         let num_questions = questions.len();
 
         Self {
@@ -102,11 +99,5 @@ impl App {
         self.selected_option = 0;
         self.answers = vec![None; self.questions.len()];
         self.result_scroll = 0;
-    }
-}
-
-impl Default for App {
-    fn default() -> Self {
-        Self::new()
     }
 }

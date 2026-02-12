@@ -1,7 +1,15 @@
 [package]
-name = "rust_quiz_tui"
+name = "rust-quiz"
 version = "0.1.0"
 edition = "2024"
+
+[lib]
+name = "rust_quiz"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rust-quiz"
+path = "src/main.rs"
 
 [dependencies]
 crossterm = "0.29.0"

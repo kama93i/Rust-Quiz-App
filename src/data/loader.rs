@@ -1,12 +1,15 @@
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use crate::models::Question;
 
-const DEFAULT_QUESTIONS_PATH: &str = "questions.json";
+pub fn load_questions(path: Option<&Path>) -> Vec<Question> {
+    let file_path: PathBuf = match path {
+        Some(p) => p.to_path_buf(),
+        None => PathBuf::from("questions.json"),
+    };
 
-pub fn load_questions() -> Vec<Question> {
-    load_questions_from_path(DEFAULT_QUESTIONS_PATH)
+    load_questions_from_path(&file_path)
 }
 
 pub fn load_questions_from_path<P: AsRef<Path>>(path: P) -> Vec<Question> {
